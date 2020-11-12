@@ -50,7 +50,7 @@ namespace Intuitive.Repository
             IQueryable<User> query = _context.Users;
 
             query = query.AsNoTracking()
-                        .OrderByDescending(c => c.UserId)
+                        .OrderBy(c => c.UserId)
                         .Where(c=>c.Name.ToLower().Contains(name.ToLower()));
 
             return await query.ToArrayAsync();
