@@ -1,4 +1,4 @@
-# Intuitive - Sistema de Cadastro e Pesquisa de usuários
+# Intuitive - CRUD
 
 ## Configuração do Projeto
 
@@ -31,27 +31,7 @@ O projeto esta divido em 4 camadas:
 Antigamente o MVC era o padrão mais usado no desenovolvimento de software, porém surgiu a necessidade de separar o projeto em várias partes com responsabilidades exclusivas. 
 
 
-
-## Banco de dados
-
-  Atualmente salvei os dados em um SqlLite, mais simples e mais de boas de usar. Mas no arquivo eles pediram para usar o SqlServer, então é uma boa você tentar mudar.
-  
-  
-  1. Acesse o arquivo Startup.cs da api e ache o método ConfigureServices
-
-  ```
-   public void ConfigureServices(IServiceCollection services)
-          {
-              services.AddDbContext<ProAgilContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-              ...
-          }
-
-  ```
-  
-  Você vai precisar instalar o pacote nuget do SqlServer e adicionar a string de conexão. Não lembro de cabeça como faz, mas tem bastante tutoriais na internet.
-  
-  
-  ## Gerar o Banco
+## Gerar o Banco
   
   Você vai precisar criar uma nova migration, então exclua a pasta "Migrations" que fica dentro do projeto repository.Agora abra o terminal e entre no diretório Intuitive.Repository. Assim: 
   
