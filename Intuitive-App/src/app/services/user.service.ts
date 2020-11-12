@@ -16,12 +16,17 @@ export class UserService {
         return this.http.get<User[]>(this.baseUrl);
     }
 
+
     getUserByName(name: string): Observable<User[]>{
       return this.http.get<User[]>('${this.baseUrl}/getByName/${name}');
     }
 
     getUserById(userId: number): Observable<User[]>{
       return this.http.get<User[]>('${this.baseUrl}/${userId}');
+    }
+
+    criptPassword(user: User){
+      return this.http.put(`${this.baseUrl}/${user.userId}`, user);
     }
 
     postUser(user: User) {
@@ -36,6 +41,6 @@ export class UserService {
 
     deleteUser(user: User){
       console.log(user);
-      return this.http.delete(`${this.baseUrl}/${user.userId}`);
+      return this.http.delete(`${this.baseUrl}/${user.name}`);
     }
 }

@@ -1,13 +1,4 @@
 <div class="d-flex">
-  <div class="form-inline mr-auto">
-    <div class="div-group mb-2">
-      Filtro: <input type="text"
-      class="form-control mr-2"
-      placeholder="Buscar"
-      [(ngModel)] = "filtroLista"
-      >
-    </div>
-  </div>
   <div>
     <button class="btn btn-primary" (click)="novoUser(template)">
       <i class="fa fa-plus-circle"></i>&nbsp;
@@ -30,6 +21,7 @@
       <th>Opções</th>
     </tr>
   </thead>
+
   <tbody *ngIf="users && users.length">
     <tr *ngFor="let user of users">
       <td>{{user.userId}}</td>
@@ -53,16 +45,15 @@
   <tfoot *ngIf="!user && !users.length">
     <tr>
       <td coslpan="7" class="text-center">
-          <h4>
-            Nenhum usuário encontrando!
-          </h4>
+        <h4>
+          Nenhum usuário encontrando!
+        </h4>
       </td>
     </tr>
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,16 +87,23 @@
           <div class="form-row">
             <div class="form-group col-md-8">
               <label>Username</label>
-              <input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('username').errors && registerForm.get('username').touched}" formControlName="username" placeholder="">
-              <div *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched" class="invalid-feedback">
+              <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('username').errors && registerForm.get('username').touched}"
+                formControlName="username" placeholder="">
+              <div *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched"
+                class="invalid-feedback">
                 Username é obrigatório.
               </div>
             </div>
             <div class="form-group col-md-4">
               <label>Data de Nascimento</label>
-              <input type="text" class="form-control" bsDatepicker [bsConfig] = "{dateInputFormat : 'DD/MM/YYYY hh:mm a'}"
-                [ngClass]="{'is-invalid': registerForm.get('dtNasc').errors && registerForm.get('dtNasc').touched}" formControlName="dtNasc" placeholder="">
-              <div *ngIf="registerForm.get('dtNasc').hasError('required') && registerForm.get('dtNasc').touched" class="invalid-feedback">
+              <input type="text" class="form-control"
+              bsDatepicker
+              [bsConfig]="{dateInputFormat : 'DD/MM/YYYY hh:mm'}"
+                [ngClass]="{'is-invalid': registerForm.get('dtNasc').errors && registerForm.get('dtNasc').touched}"
+                formControlName="dtNasc" placeholder="">
+              <div *ngIf="registerForm.get('dtNasc').hasError('required') && registerForm.get('dtNasc').touched"
+                class="invalid-feedback">
                 Data de Nascimento é obrigatório.
               </div>
             </div>
@@ -113,18 +111,25 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Senha</label>
-              <input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched}" formControlName="password" placeholder="">
-              <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched" class="invalid-feedback">
+              <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched}"
+                formControlName="password" placeholder="">
+              <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"
+                class="invalid-feedback">
                 Senha é obrigatório.
               </div>
             </div>
             <div class="form-group col-md-8">
               <label>Email</label>
-              <input type="text" class="form-control" [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}" formControlName="email" placeholder="">
-              <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched" class="invalid-feedback">
+              <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
+                formControlName="email" placeholder="">
+              <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
+                class="invalid-feedback">
                 Email é obrigatório.
               </div>
-              <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched" class="invalid-feedback">
+              <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched"
+                class="invalid-feedback">
                 Deve ser um e-mail válido.
               </div>
             </div>

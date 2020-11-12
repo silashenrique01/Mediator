@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Intuitive.Repository.Migrations
 {
     [DbContext(typeof(IntuitiveContext))]
-    [Migration("20201111005607_init")]
+    [Migration("20201112134251_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

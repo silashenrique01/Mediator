@@ -102,10 +102,13 @@ namespace Intuitive.API.Controllers
                 var user = await _repository.GetUsersAsyncById(UserId);
                 if (user == null) return NotFound();
 
+                user.Password = _repository.GerarHashMd5(user.Password);
+
                 _mapper.Map(model, user);
-                
+
 
                 _repository.Update(user);
+
 
                 if (await _repository.SaveChancesAsync())
                 {
@@ -121,13 +124,13 @@ namespace Intuitive.API.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("{UserId}")]
-        public async Task<IActionResult> Delete(int UserId)
+        [HttpDelete("{Name}")]
+        public async Task<IActionResult> Delete(string Name)
         {
             try
             {
 
-                var user = await _repository.GetUsersAsyncById(UserId);
+                var user = await _repository.GetAllUsersAsyncByName(Name);
 
                 if (user == null) return NotFound();
 
@@ -138,9 +141,9 @@ namespace Intuitive.API.Controllers
                     return Ok();
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
             return BadRequest();

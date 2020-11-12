@@ -67,12 +67,13 @@ export class UsersComponent implements OnInit {
   }
 
   filtrarUsers(filtrarPor: string): User[]{
-    filtrarPor = filtrarPor.toLocaleLowerCase();
 
     return this.users.filter(
-       User => User.name.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+       User => User.name.indexOf(filtrarPor) !== -1
     );
   }
+
+
 
   getUsers(){
     this.userService.getAllUser().subscribe(
@@ -99,7 +100,7 @@ export class UsersComponent implements OnInit {
   excluirUser(User: User, template: any) {
     this.openModal(template);
     this.user = User;
-    this.bodyDeletarUser = `Tem certeza que deseja excluir o usuário: ${User.name}, Código: ${User.userId}`;
+    this.bodyDeletarUser = `Tem certeza que deseja excluir o usuário: ${this.user.name}, Código: ${this.user.userId}`;
 
   }
 
