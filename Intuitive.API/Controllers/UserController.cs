@@ -23,21 +23,11 @@ namespace Intuitive.API.Controllers
         }
 
 
-       /*  [HttpGet]
+         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                var users = await _repository.GetAllUsersAsync();
-
-                var results = _mapper.Map<IEnumerable<UserDto>>(users);
-                return Ok(users);
-            }
-            catch (System.Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        } */
+            
+        }
         /*
                   [HttpGet("{UserId}")]
                   public async Task<IActionResult> Get(int UserId)
