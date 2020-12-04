@@ -55,9 +55,16 @@ namespace Intuitive.Domain.Repository
             return await query.ToArrayAsync();
         }
 
-        public Task<User> GetUsersAsyncById(int UserId)
+
+        public async Task<User> GetUsersAsyncById(int id)
         {
-            throw new System.NotImplementedException();
+             IQueryable<User> query = _context.Users;
+
+            query = query.AsNoTracking()
+                        .OrderBy(c => c.UserId)
+                        .Where(c => c.UserId == id);
+                        
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

@@ -7,8 +7,9 @@ using MediatR;
 using System.Reflection;
 using Intuitive.Domain.Interfaces;
 using Intuitive.Domain.Repository;
-using Intuitive.Domain.Commands;
+using Intuitive.Domain.PipelineBehaviors;
 using Microsoft.EntityFrameworkCore;
+using Intuitive.Domain.Commands;
 
 namespace Intuitive.API
 {
@@ -25,7 +26,11 @@ namespace Intuitive.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddMediatR(typeof(GetAllUserCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUserByIdCommand).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(CreateUserCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(UpdateUserCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(DeleteUserCommand).GetTypeInfo().Assembly);
             services.AddControllers();
             services.AddScoped(typeof(IIntuitiveRepository), typeof(IntuitiveRepository));
             services.AddDbContext<IntuitiveContext>(op => {

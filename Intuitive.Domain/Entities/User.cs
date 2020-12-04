@@ -4,8 +4,9 @@ namespace Intuitive.Domain.Entities
 {
     public class User
     {
-
-        public User(int _UserId, string _Name, string _DtNasc, string _Email, string _Username, string _Password)
+        public User(){}
+        
+        public User(int _UserId, string _Name, DateTime _DtNasc, string _Email, string _Username, string _Password)
         {
             UserId = _UserId;
             Name = _Name;
@@ -16,11 +17,11 @@ namespace Intuitive.Domain.Entities
 
         }
 
-        public User(){}
+        
 
         public int UserId { get; set; }
         public string Name { get; set; }
-        public string DtNasc { get; set; }
+        public DateTime DtNasc { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

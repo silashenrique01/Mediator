@@ -41,6 +41,6 @@ export class UserService {
 
     deleteUser(user: User){
       console.log(user);
-      return this.http.delete(`${this.baseUrl}/${user.name}`);
+      return this.http.delete(`${this.baseUrl}/${user.userId}`);
     }
 }

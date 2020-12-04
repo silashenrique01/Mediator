@@ -60,7 +60,7 @@ namespace Intuitive.Domain.Handlers
             {
                 UserId = request.UserId,
                 Name = request.Name,
-                DtNasc = request.DtNasc,
+                DtNasc = DateTime.Parse(request.DtNasc),
                 Email = request.Email,
                 Username = request.Username,
                 Password = request.Password
