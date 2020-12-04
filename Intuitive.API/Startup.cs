@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Intuitive.Repository;
-using AutoMapper;
-using Intuitive.API.Helpers;
+using MediatR;
+using System.Reflection;
+using Intuitive.Domain.Interfaces;
+using Intuitive.Domain.Repository;
+using Intuitive.Domain.Commands;
 using Microsoft.EntityFrameworkCore;
 
 namespace Intuitive.API
@@ -22,11 +24,15 @@ namespace Intuitive.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IntuitiveContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
 
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
-            services.AddScoped<IIntuitiveRepository, IntuitiveRepository>();
+            services.AddMediatR(typeof(CreateUserCommand).GetTypeInfo().Assembly);
+            services.AddControllers();
+            services.AddScoped(typeof(IIntuitiveRepository), typeof(IntuitiveRepository));
+            services.AddDbContext<IntuitiveContext>(op => {
+                op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            
             services.AddCors();
         }
 

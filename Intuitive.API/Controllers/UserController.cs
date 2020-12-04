@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Intuitive.API.Dtos;
-using Intuitive.Domain;
-using Intuitive.Repository;
-using AutoMapper;
+using Intuitive.Domain.Interfaces;
+using MediatR;
+using Intuitive.Domain.Commands;
 
 namespace Intuitive.API.Controllers
 {
@@ -14,15 +11,19 @@ namespace Intuitive.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IIntuitiveRepository _repository;
-        private readonly IMapper _mapper;
-        public UserController(IIntuitiveRepository repository, IMapper mapper)
-        {
+        //private readonly ILogger<UserController> _logger;
 
-            _mapper = mapper;
+        private readonly IMediator _mediator;
+
+        public UserController(IMediator mediator,  IIntuitiveRepository repository)
+        {
+           
+            _mediator = mediator;
             _repository = repository;
         }
 
-        [HttpGet]
+
+       /*  [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
@@ -36,117 +37,101 @@ namespace Intuitive.API.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-        }
+        } */
+        /*
+                  [HttpGet("{UserId}")]
+                  public async Task<IActionResult> Get(int UserId)
+                  {
+                      try
+                      {
+                          var user = await _repository.GetUsersAsyncById(UserId);
+                          var results = _mapper.Map<UserDto>(user);
 
-        [HttpGet("{UserId}")]
-        public async Task<IActionResult> Get(int UserId)
-        {
-            try
-            {
-                var user = await _repository.GetUsersAsyncById(UserId);
-                var results = _mapper.Map<UserDto>(user);
+                          return Ok(results);
+                      }
+                      catch (System.Exception)
+                      {
+                          return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                      }
+                  }
 
-                return Ok(results);
-            }
-            catch (System.Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
-            }
-        }
+                  [HttpGet("getByName/{name}")]
+                  public async Task<IActionResult> Get(string name)
+                  {
+                      try
+                      {
+                          var users = await _repository.GetAllUsersAsyncByName(name);
+                          var results = _mapper.Map<IEnumerable<UserDto>>(users);
 
-        [HttpGet("getByName/{name}")]
-        public async Task<IActionResult> Get(string name)
-        {
-            try
-            {
-                var users = await _repository.GetAllUsersAsyncByName(name);
-                var results = _mapper.Map<IEnumerable<UserDto>>(users);
-
-                return Ok(results);
-            }
-            catch (System.Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
-            }
-        }
-
+                          return Ok(results);
+                      }
+                      catch (System.Exception)
+                      {
+                          return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                      }
+                  }
+           */
         [HttpPost]
-        public async Task<IActionResult> Post(UserDto model)
+       public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
-            try
-            {
-                //Mapeamento inverso -> Dto para User
-                var user = _mapper.Map<User>(model);
-
-                _repository.Add(user);
-
-                if (await _repository.SaveChancesAsync())
-                {
-                    return Created($"/user/{model.UserId}", _mapper.Map<UserDto>(user));
-                }
-
-            }
-            catch (System.Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
-            }
-
-            return BadRequest();
+            var response = await _mediator.Send(command).ConfigureAwait(false);
+            return Ok(response);
         }
 
-        [HttpPut("{UserId}")]
-        public async Task<IActionResult> Put(int UserId, UserDto model)
-        {
-            try
-            {
-                var user = await _repository.GetUsersAsyncById(UserId);
-                if (user == null) return NotFound();
-
-                user.Password = _repository.GerarHashMd5(user.Password);
-
-                _mapper.Map(model, user);
-
-
-                _repository.Update(user);
-
-
-                if (await _repository.SaveChancesAsync())
+        /* 
+                [HttpPut("{UserId}")]
+                public async Task<IActionResult> Put(int UserId, UserDto model)
                 {
-                    return Created($"/user/{model.UserId}", _mapper.Map<UserDto>(user));
+                    try
+                    {
+                        var user = await _repository.GetUsersAsyncById(UserId);
+                        if (user == null) return NotFound();
+
+                        user.Password = _repository.GerarHashMd5(user.Password);
+
+                        _mapper.Map(model, user);
+
+
+                        _repository.Update(user);
+
+
+                        if (await _repository.SaveChancesAsync())
+                        {
+                            return Created($"/user/{model.UserId}", _mapper.Map<UserDto>(user));
+                        }
+
+                    }
+                    catch (System.Exception)
+                    {
+                        return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                    }
+
+                    return BadRequest();
                 }
 
-            }
-            catch (System.Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
-            }
-
-            return BadRequest();
-        }
-
-        [HttpDelete("{Name}")]
-        public async Task<IActionResult> Delete(string Name)
-        {
-            try
-            {
-
-                var user = await _repository.GetAllUsersAsyncByName(Name);
-
-                if (user == null) return NotFound();
-
-                _repository.Delete(User);
-
-                if (await _repository.SaveChancesAsync())
+                [HttpDelete("{Name}")]
+                public async Task<IActionResult> Delete(string Name)
                 {
-                    return Ok();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+                    try
+                    {
 
-            return BadRequest();
-        }
+                        var user = await _repository.GetAllUsersAsyncByName(Name);
+
+                        if (user == null) return NotFound();
+
+                        _repository.Delete(User);
+
+                        if (await _repository.SaveChancesAsync())
+                        {
+                            return Ok();
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                    }
+
+                    return BadRequest();
+                } */
     }
 }

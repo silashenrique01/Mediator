@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuitive.API", "Intuitive.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuitive.Domain", "Intuitive.Domain\Intuitive.Domain.csproj", "{F4C74C7E-4671-46A0-956E-DEC63507692C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuitive.Repository", "Intuitive.Repository\Intuitive.Repository.csproj", "{7E346992-42A2-4498-9CDE-B0C87EE0491E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
