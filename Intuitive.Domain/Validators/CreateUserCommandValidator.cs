@@ -4,6 +4,8 @@ using Intuitive.Domain.Commands;
 namespace Intuitive.Domain.Validators
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+
+    
     {
         public CreateUserCommandValidator()
         {

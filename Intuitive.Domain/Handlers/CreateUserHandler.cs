@@ -58,7 +58,6 @@ namespace Intuitive.Domain.Handlers
         {
             return new User()
             {
-                UserId = request.UserId,
                 Name = request.Name,
                 DtNasc = DateTime.Parse(request.DtNasc),
                 Email = request.Email,
