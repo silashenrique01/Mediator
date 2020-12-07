@@ -17,11 +17,11 @@ namespace Intuitive.Domain.Validators
 
             RuleFor(o => o.Username).NotEmpty();
 
-            RuleFor(x => x.Password).Length(0, 10);
+            RuleFor(x => x.Password).Length(6, 10).WithMessage("Senha deve conter pelo menos 8 caracteres!").WithErrorCode("1005");
         }
 
         /// <summary>
-        /// TODO:Documentar
+        /// TODO: 
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>

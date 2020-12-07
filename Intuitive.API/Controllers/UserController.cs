@@ -10,18 +10,18 @@ namespace Intuitive.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IIntuitiveRepository _repository;
-        //private readonly ILogger<UserController> _logger;
 
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator, IIntuitiveRepository repository)
+        public UserController(IMediator mediator)
         {
 
             _mediator = mediator;
-            _repository = repository;
         }
 
+        /* As requisições são encapsuladas atráves do mediator.
+        Ou seja, diferente da forma anterior não acessamos o banco de dados de forma direta
+        para lermos as informações, isso torna o sistema seguro e eficaz.*/
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -34,6 +34,14 @@ namespace Intuitive.API.Controllers
         public async Task<IActionResult> Get(int UserId)
         {
             var command = new GetUserByIdCommand(UserId);
+            var response = await _mediator.Send(command).ConfigureAwait(false);
+            return response.Content != null ? (ActionResult)Ok(response.Content) : NotFound();
+        }
+
+          [HttpGet("{Name}")]
+        public async Task<IActionResult> Get(string Name)
+        {
+            var command = new GetUserByNameCommand(Name);
             var response = await _mediator.Send(command).ConfigureAwait(false);
             return response.Content != null ? (ActionResult)Ok(response.Content) : NotFound();
         }

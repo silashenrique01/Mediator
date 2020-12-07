@@ -1,5 +1,12 @@
 using System;
 
+
+/// <summary>
+/// TODO: Entidade que representa um usuario e as regras de negocio
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
+
 namespace Intuitive.Domain.Entities
 {
     public class User
@@ -19,11 +26,11 @@ namespace Intuitive.Domain.Entities
 
         
 
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public DateTime DtNasc { get; set; }
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public int UserId { get; private set; }
+        public string Name { get; private set; }
+        public DateTime DtNasc { get; private set; }
+        public string Email { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
     }
 }

@@ -9,12 +9,12 @@ using MediatR;
 
 namespace Intuitive.Domain.Commands
 {
-    public class GetUserByIdCommand : IRequest<Response>
+    public class GetUserByNameCommand : IRequest<Response>
     {
-        public GetUserByIdCommand(int id)
+        public GetUserByNameCommand(string name)
         {
-            UserId = id;
+            Name = name;
         }
-        public int UserId { get; }
+        public string Name { get; }
     }
 }

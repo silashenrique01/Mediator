@@ -2,6 +2,12 @@
 using Intuitive.Domain.Infra;
 using MediatR;
 
+/// <summary>
+/// TODO: Comando que requisita a edição de um usuario
+/// </summary>
+/// <param name=""></param>
+/// <returns></returns>
+
 namespace Intuitive.Domain.Commands
 {
     public class UpdateUserCommand : IRequest<Response>

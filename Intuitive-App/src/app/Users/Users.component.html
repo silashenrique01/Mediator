@@ -1,4 +1,13 @@
 <div class="d-flex">
+  <div class="form-inline mr-auto">
+    <div class="div-group mb-2">
+      Filtro: <input type="text"
+      class="form-control mr-2"
+      placeholder="Buscar"
+      [(ngModel)] = "filtroLista"
+      >
+    </div>
+  </div>
   <div>
     <button class="btn btn-primary" (click)="novoUser(template)">
       <i class="fa fa-plus-circle"></i>&nbsp;
@@ -8,7 +17,6 @@
 </div>
 
 <h3>Filtro: {{filtroLista}}</h3>
-
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -21,8 +29,7 @@
       <th>Opções</th>
     </tr>
   </thead>
-
-  <tbody>
+  <tbody *ngIf="!usersFiltrados">
     <tr *ngFor="let user of users">
       <td>{{user.userId}}</td>
       <td>{{user.name}}</td>
@@ -42,6 +49,27 @@
       </td>
     </tr>
   </tbody>
+  <tbody *ngIf="usersFiltrados">
+    <tr *ngFor="let user of usersFiltrados">
+      <td>{{user.userId}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.dtNasc | DateTimeFormatPipe }}</td>
+      <td>{{user.email }}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.password}}</td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarUser(user, template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirUser(user, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+
   <tfoot *ngIf="!user && !users.length">
     <tr>
       <td coslpan="7" class="text-center">

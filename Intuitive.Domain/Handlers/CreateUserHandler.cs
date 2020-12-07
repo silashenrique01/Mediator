@@ -56,14 +56,7 @@ namespace Intuitive.Domain.Handlers
 
         private static User MapUserCommandToUserEntity(CreateUserCommand request)
         {
-            return new User()
-            {
-                Name = request.Name,
-                DtNasc = DateTime.Parse(request.DtNasc),
-                Email = request.Email,
-                Username = request.Username,
-                Password = request.Password
-            };
+            return new User(request.UserId, request.Name, request.DtNasc, request.Email, request.Username, request.Password);
         }
 
     }

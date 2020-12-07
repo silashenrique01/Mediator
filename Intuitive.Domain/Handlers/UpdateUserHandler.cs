@@ -24,17 +24,11 @@ namespace Intuitive.Domain.Handlers
         public async Task<Response> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             Response response = new Response();
-
+            User user = new User(request.UserId, request.Name, request.DtNasc, request.Email, request.Username, request.Password);
             try
             {
-                User user = await _repository.GetUsersAsyncById(request.UserId);
+            
                 
-                user.UserId = request.UserId;
-                user.Name = request.Name;
-                user.DtNasc = request.DtNasc;
-                user.Email = request.Email;
-                user.Username = request.Username;
-                user.Password = request.Password;
 
                     
                 _repository.Update(user);

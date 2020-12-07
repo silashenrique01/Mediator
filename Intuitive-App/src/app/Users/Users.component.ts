@@ -20,11 +20,11 @@ export class UsersComponent implements OnInit {
 
   _filtroLista = '';
 
-  users: User[] = [];
+  users: User[];
   user: User;
   modoSalvar = '';
   bodyDeletarUser = '';
-  usersFiltrados: User[] = [];
+  usersFiltrados: User[];
   registerForm: FormGroup;
 
   constructor(
@@ -63,14 +63,16 @@ export class UsersComponent implements OnInit {
   }
   set filtroLista(value: string){
       this._filtroLista = value;
-      this.usersFiltrados = this.filtroLista ? this.filtrarUsers(this.filtroLista) : this.users;
+      console.log(this._filtroLista);
+      this.usersFiltrados = this._filtroLista ? this.filtrarUsers(this._filtroLista) : this.users;
   }
 
   filtrarUsers(filtrarPor: string): User[]{
+      filtrarPor = filtrarPor.toLocaleLowerCase();
 
-    return this.users.filter(
-       User => User.name.indexOf(filtrarPor) !== -1
-    );
+      return this.users.filter(
+         User => User.name.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      );
   }
 
 
@@ -80,7 +82,7 @@ export class UsersComponent implements OnInit {
         (_Users: User[]) => {
           this.users = _Users;
           this.users = this.users;
-          console.log(_Users);
+          console.log(this._filtroLista);
         }, error => {
             console.log(error);
         }
