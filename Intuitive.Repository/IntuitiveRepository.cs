@@ -4,7 +4,7 @@ using Intuitive.Domain.Interfaces;
 using Intuitive.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Intuitive.Domain.Repository
+namespace Intuitive.Repository
 {
     public class IntuitiveRepository : IIntuitiveRepository
     {
@@ -37,7 +37,7 @@ namespace Intuitive.Domain.Repository
         //User
         public async Task<User[]> GetAllUsersAsync()
         {
-            IQueryable<User> query = _context.Users;
+            IQueryable<User> query = _context.UsersIntuitive;
 
             query = query.AsNoTracking()
                         .OrderBy(c => c.UserId);
@@ -46,7 +46,7 @@ namespace Intuitive.Domain.Repository
         }
         public async Task<User[]> GetAllUsersAsyncByName(string name)
         {
-            IQueryable<User> query = _context.Users;
+            IQueryable<User> query = _context.UsersIntuitive;
 
             query = query.AsNoTracking()
                         .OrderBy(c => c.Name)
@@ -58,7 +58,7 @@ namespace Intuitive.Domain.Repository
 
         public async Task<User> GetUsersAsyncById(int id)
         {
-             IQueryable<User> query = _context.Users;
+             IQueryable<User> query = _context.UsersIntuitive;
 
             query = query.AsNoTracking()
                         .OrderBy(c => c.UserId)

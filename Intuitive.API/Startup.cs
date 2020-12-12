@@ -6,10 +6,18 @@ using Microsoft.Extensions.Hosting;
 using MediatR;
 using System.Reflection;
 using Intuitive.Domain.Interfaces;
-using Intuitive.Domain.Repository;
-using Intuitive.Domain.PipelineBehaviors;
+using Intuitive.Domain.Identity;
+using Intuitive.Repository;
 using Microsoft.EntityFrameworkCore;
 using Intuitive.Domain.Commands;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using AutoMapper;
+using Intuitive.API.Helpers;
 
 namespace Intuitive.API
 {
@@ -32,12 +40,46 @@ namespace Intuitive.API
             services.AddMediatR(typeof(UpdateUserCommand).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(DeleteUserCommand).GetTypeInfo().Assembly);
             services.AddControllers();
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddScoped(typeof(IIntuitiveRepository), typeof(IntuitiveRepository));
             services.AddDbContext<IntuitiveContext>(op => {
                 op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            IdentityBuilder builder = services.AddIdentityCore<UserApplication>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            });
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<IntuitiveContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<UserApplication>>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+
+                };
+            });
             
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
             services.AddCors();
         }
 
@@ -48,6 +90,8 @@ namespace Intuitive.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
