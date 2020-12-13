@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Intuitive.Domain.Interfaces;
 using MediatR;
 using Intuitive.Domain.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Intuitive.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace Intuitive.API.Controllers
         /* As requisições são encapsuladas atráves do mediator.
         Ou seja, diferente da forma anterior não acessamos o banco de dados de forma direta
         para lermos as informações, isso torna o sistema seguro e eficaz.*/
-
+        
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -63,6 +64,7 @@ namespace Intuitive.API.Controllers
 
         [Route("{UserId:int}")]
         [HttpDelete]
+        [AllowAnonymous]
         public async Task<IActionResult> Delete(int UserId)
         {
             var command = new DeleteUserCommand(UserId);

@@ -1,0 +1,11 @@
+body{
+  margin: 0px;
+}
+h2{
+  width: 100%;
+  height: 70px;
+  background-color:#5aaaff;
+  color: white;
+  text-align: center;
+  line-height: 70px;
+}

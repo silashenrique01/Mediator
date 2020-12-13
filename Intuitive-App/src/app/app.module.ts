@@ -1,3 +1,5 @@
+import { ToastrModule} from 'ngx-toastr';
+import { TituloComponent } from './_shared/Titulo/Titulo.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,13 +15,20 @@ import { UserService } from './services/user.service';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './Users/Users.component';
-
+import { RegistrationComponent } from './Auth/Registration/Registration.component';
+import { LoginComponent } from './Auth/Login/Login.component';
 import { DateTimeFormatPipePipe } from './_helpers/DateTimeFormatPipe.pipe';
+import { AuthComponent } from './Auth/Auth.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    DateTimeFormatPipePipe
+    DateTimeFormatPipePipe,
+    AuthComponent,
+    LoginComponent,
+    RegistrationComponent,
+    TituloComponent
    ],
   imports: [
     BrowserModule,
@@ -32,6 +41,7 @@ import { DateTimeFormatPipePipe } from './_helpers/DateTimeFormatPipe.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ToastrModule.forRoot(),
     ReactiveFormsModule
   ],
   providers: [

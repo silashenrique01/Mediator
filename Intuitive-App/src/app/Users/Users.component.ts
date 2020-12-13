@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../_models/User';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,7 +32,8 @@ export class UsersComponent implements OnInit {
       private userService: UserService,
       private modalService: BsModalService,
       private fb: FormBuilder,
-      private localeService: BsLocaleService
+      private localeService: BsLocaleService,
+      private toastr: ToastrService
   ) {
 
       this.localeService.use('pt-br');
@@ -84,7 +86,7 @@ export class UsersComponent implements OnInit {
           this.users = this.users;
           console.log(this._filtroLista);
         }, error => {
-            console.log(error);
+            this.toastr.error(`Erro ao listar usuarios: ${error}`);
         }
     );
   }
@@ -112,8 +114,11 @@ export class UsersComponent implements OnInit {
       () => {
         template.hide();
         this.getUsers();
-      }, error => {
+        this.toastr.success(`Sucesso ao deletar usuario`);
+      }, error =>
+      {
         console.log(error);
+        this.toastr.success(`Erro ao deletar usuario`);
       }
     );
   }
@@ -127,9 +132,12 @@ export class UsersComponent implements OnInit {
           (novoUser: User) => {
             template.hide();
             this.getUsers();
+            this.toastr.success(`Sucesso ao cadastrar usuario`);
             console.log(novoUser);
           }, error => {
             console.log(error);
+            this.toastr.success(`Erro ao cadastrar usuario`);
+
           }
         );
       }
@@ -139,8 +147,10 @@ export class UsersComponent implements OnInit {
           () => {
             template.hide();
             this.getUsers();
+            this.toastr.success(`Sucesso ao editar usuario`);
           }, error => {
             console.log(error);
+            this.toastr.success(`Erro ao editar usuario`);
           }
         );
       }
