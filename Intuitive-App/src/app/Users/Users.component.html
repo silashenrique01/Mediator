@@ -113,7 +113,7 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Senha</label>
-              <input type="text" class="form-control"
+              <input type="password" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched}"
                 formControlName="password" placeholder="">
               <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"

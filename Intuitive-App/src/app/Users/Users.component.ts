@@ -119,7 +119,8 @@ export class UsersComponent implements OnInit {
       }, error =>
       {
         console.log(error);
-        this.toastr.success(`Erro ao deletar usuario`);
+        this.toastr.error(`Erro ao deletar usuario`);
+        template.hide();
       }
     );
   }
@@ -138,7 +139,7 @@ export class UsersComponent implements OnInit {
           }, error => {
             console.log(error);
             this.toastr.success(`Erro ao cadastrar usuario`);
-
+            template.hide();
           }
         );
       }
@@ -151,7 +152,8 @@ export class UsersComponent implements OnInit {
             this.toastr.success(`Sucesso ao editar usuario`);
           }, error => {
             console.log(error);
-            this.toastr.success(`Erro ao editar usuario`);
+            this.toastr.error(`Erro ao editar usuario`);
+            template.hide();
           }
         );
       }

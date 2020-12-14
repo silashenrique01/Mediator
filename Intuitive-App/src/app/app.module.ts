@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,9 +20,10 @@ import { LoginComponent } from './Auth/Login/Login.component';
 import { DateTimeFormatPipePipe } from './_helpers/DateTimeFormatPipe.pipe';
 import { AuthComponent } from './Auth/Auth.component';
 import { NavComponent } from './nav/nav.component';
+import { AuthInterceptor } from './Guard/auth.interceptor';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     UsersComponent,
     DateTimeFormatPipePipe,
@@ -30,7 +31,7 @@ import { NavComponent } from './nav/nav.component';
     LoginComponent,
     RegistrationComponent,
     TituloComponent,
-      NavComponent
+    NavComponent
    ],
   imports: [
     BrowserModule,
@@ -47,7 +48,13 @@ import { NavComponent } from './nav/nav.component';
     ReactiveFormsModule
   ],
   providers: [
-    UserService
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+
   ],
   bootstrap: [AppComponent]
 })

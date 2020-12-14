@@ -17,12 +17,13 @@ export class NavComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private auth: AuthService,
+    public auth: AuthService,
     private toastr: ToastrService
 
   ) { }
 
   ngOnInit() {
+    this.getUsername();
   }
 
   LoggedIn(){
@@ -39,8 +40,9 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
-  getUsername(nome: string){
-    return this.nome = nome
+  getUsername(){
+    return this.nome = localStorage.getItem('username');
+
   }
 
 }
