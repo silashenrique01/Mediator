@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  baseUrl = 'https://localhost:5001/user'; //Alterar de acordo com o local host da API
+  baseUrl = 'https://localhost:5001/user/'; //Alterar de acordo com o local host da API
 
   constructor(private http: HttpClient) { }
 

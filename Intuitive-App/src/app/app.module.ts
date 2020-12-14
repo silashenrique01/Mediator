@@ -19,16 +19,18 @@ import { RegistrationComponent } from './Auth/Registration/Registration.componen
 import { LoginComponent } from './Auth/Login/Login.component';
 import { DateTimeFormatPipePipe } from './_helpers/DateTimeFormatPipe.pipe';
 import { AuthComponent } from './Auth/Auth.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     UsersComponent,
     DateTimeFormatPipePipe,
     AuthComponent,
     LoginComponent,
     RegistrationComponent,
-    TituloComponent
+    TituloComponent,
+      NavComponent
    ],
   imports: [
     BrowserModule,

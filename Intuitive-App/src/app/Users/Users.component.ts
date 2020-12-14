@@ -20,12 +20,13 @@ defineLocale('pt-br', ptBrLocale);
 export class UsersComponent implements OnInit {
 
   _filtroLista = '';
+  titulo="Intuitive Software"
 
-  users: User[];
+  users: User[] = [];
   user: User;
   modoSalvar = '';
   bodyDeletarUser = '';
-  usersFiltrados: User[];
+  usersFiltrados: User[] = [];
   registerForm: FormGroup;
 
   constructor(
@@ -83,7 +84,7 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUser().subscribe(
         (_Users: User[]) => {
           this.users = _Users;
-          this.users = this.users;
+          this.usersFiltrados = _Users;
           console.log(this._filtroLista);
         }, error => {
             this.toastr.error(`Erro ao listar usuarios: ${error}`);

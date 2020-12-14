@@ -25,27 +25,7 @@
       <th>Opções</th>
     </tr>
   </thead>
-  <tbody *ngIf="!usersFiltrados">
-    <tr *ngFor="let user of users">
-      <td>{{user.userId}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.dtNasc | DateTimeFormatPipe }}</td>
-      <td>{{user.email }}</td>
-      <td>{{user.username}}</td>
-      <td>{{user.password}}</td>
-      <td>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarUser(user, template)">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirUser(user, confirm)">
-            <i class="fa fa-eraser"></i>
-          </button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-  <tbody *ngIf="usersFiltrados">
+  <tbody *ngIf="users && users.length">
     <tr *ngFor="let user of usersFiltrados">
       <td>{{user.userId}}</td>
       <td>{{user.name}}</td>
@@ -121,7 +101,7 @@
             </div>
             <div class="form-group col-md-4">
               <label>Data de Nascimento</label>
-              <input type="text" class="form-control" bsDatepicker bsConfig="{dateInputFormat : 'DD/MM/YYYY'}"
+              <input type="text" class="form-control" bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }"
                 [ngClass]="{'is-invalid': registerForm.get('dtNasc').errors && registerForm.get('dtNasc').touched}"
                 formControlName="dtNasc" placeholder="">
               <div *ngIf="registerForm.get('dtNasc').hasError('required') && registerForm.get('dtNasc').touched"

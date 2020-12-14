@@ -1,3 +1,4 @@
+import { UsersComponent } from './Users/Users.component';
 import { RegistrationComponent } from './Auth/Registration/Registration.component';
 import { LoginComponent } from './Auth/Login/Login.component';
 import { AuthComponent } from './Auth/Auth.component';
@@ -11,6 +12,9 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'registration', component: RegistrationComponent}
    ]
+  },
+  {
+    path: 'user', component: UsersComponent
   }
 ];
 

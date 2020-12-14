@@ -25,6 +25,7 @@ namespace Intuitive.API.Controllers
         para lermos as informações, isso torna o sistema seguro e eficaz.*/
         
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var command = new GetAllUserCommand();
@@ -48,6 +49,7 @@ namespace Intuitive.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
             var response = await _mediator.Send(command).ConfigureAwait(false);
@@ -64,7 +66,6 @@ namespace Intuitive.API.Controllers
 
         [Route("{UserId:int}")]
         [HttpDelete]
-        [AllowAnonymous]
         public async Task<IActionResult> Delete(int UserId)
         {
             var command = new DeleteUserCommand(UserId);
