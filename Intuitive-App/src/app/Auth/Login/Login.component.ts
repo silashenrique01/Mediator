@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/user']);
 
       },
-      error =>{
+      error => {
         this.toastr.error('Erro ao fazer o login');
       }
     );

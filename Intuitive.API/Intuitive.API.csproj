@@ -20,9 +20,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Intuitive.Domain\Intuitive.Domain.csproj" />
     <ProjectReference Include="..\Intuitive.Repository\Intuitive.Repository.csproj" />
   </ItemGroup>
+    <PropertyGroup>
+  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 </Project>

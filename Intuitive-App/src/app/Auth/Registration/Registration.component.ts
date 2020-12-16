@@ -70,7 +70,7 @@ export class RegistrationComponent implements OnInit {
               if(error.code == 'DuplicateUserName'){
                     this.toastr.error('Cadastro Duplicado!');
               }else{
-                this.toastr.error(`Erro no cadastro! CODE: ${error}`);
+                this.toastr.error(`Erro no cadastro! Contate o administrador do Sistema`);
               }
             });
     }

@@ -20,6 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
           succ =>{},
           error =>{
             if(error.status === 401){
+              console.log("erro ao fazer login");
               this.router.navigateByUrl('/auth/login');
             }
           }

@@ -41,7 +41,7 @@ export class NavComponent implements OnInit {
   }
 
   getUsername(){
-    return this.nome = localStorage.getItem('username');
+    return sessionStorage.getItem('username');
 
   }
 

@@ -17,7 +17,12 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Swagger;
 using Intuitive.API.Helpers;
+using System;
+using System.IO;
+using Microsoft.OpenApi.Models;
+using Intuitive.Domain.Commands.AuthenticationCommands;
 
 namespace Intuitive.API
 {
@@ -33,7 +38,9 @@ namespace Intuitive.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
+            services.AddMediatR(typeof(RegisterCommands).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(LoginCommands).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(GetAllUserCommand).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(GetUserByIdCommand).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(CreateUserCommand).GetTypeInfo().Assembly);
@@ -81,11 +88,51 @@ namespace Intuitive.API
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddCors();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "IntuitiveAPI", 
+                    Version = "v1",
+                    Description = "Projeto de demonstração ASP.Net Core"
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    
+                c.IncludeXmlComments(xmlPath);
+
+                
+
+                c.AddSecurityDefinition(
+
+                    "Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        Description = "Copie 'Bearer ' + token'",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer"
+
+                    });
+                        
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+               //Ativa o Swagger
+            app.UseSwagger();
+
+            // Ativa o Swagger UI
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "IntuitiveAPI V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -105,6 +152,8 @@ namespace Intuitive.API
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }

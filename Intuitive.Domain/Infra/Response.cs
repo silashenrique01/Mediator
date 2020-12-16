@@ -12,6 +12,8 @@ namespace Intuitive.Domain.Infra
         public object Content { get; set; }
 
         public string SuccessMessage { get; set; }
+        
+        public string Token { get; set; }
 
         public bool Success { get { return this._messages.Count == 0; } }
 
