@@ -17,8 +17,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
-using Swashbuckle.AspNetCore.Swagger;
-using Intuitive.API.Helpers;
 using System;
 using System.IO;
 using Microsoft.OpenApi.Models;
@@ -47,7 +45,6 @@ namespace Intuitive.API
             services.AddMediatR(typeof(UpdateUserCommand).GetTypeInfo().Assembly);
             services.AddMediatR(typeof(DeleteUserCommand).GetTypeInfo().Assembly);
             services.AddControllers();
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddScoped(typeof(IIntuitiveRepository), typeof(IntuitiveRepository));
             services.AddDbContext<IntuitiveContext>(op => {
                 op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));

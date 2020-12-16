@@ -5,7 +5,6 @@ using MediatR;
 /// <summary>
 /// TODO: Comando que requisita a criação de um usuario
 /// </summary>
-/// <param name="type"></param>
 /// <returns></returns>
 
 namespace Intuitive.Domain.Commands

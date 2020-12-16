@@ -2,9 +2,8 @@ using Intuitive.Domain.Infra;
 using MediatR;
 
 /// <summary>
-/// TODO: Comando que requisita a criação de um usuario para autenticação
+/// TODO: Comando que requisita o login de um usuario para acessar a API
 /// </summary>
-/// <param name="type"></param>
 /// <returns></returns>
 /// 
 

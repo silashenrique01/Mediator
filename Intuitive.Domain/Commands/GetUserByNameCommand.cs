@@ -2,9 +2,9 @@
 using MediatR;
 
 /// <summary>
-/// TODO: Comando que requisita a lista de um usuario específico
+/// TODO: Comando que requisita um usuario específico pelo nome
 /// </summary>
-/// <param name="id"></param>
+/// <param name="name"></param>
 /// <returns></returns>
 
 namespace Intuitive.Domain.Commands

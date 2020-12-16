@@ -2,7 +2,7 @@
 using MediatR;
 
 /// <summary>
-/// TODO: Comando que requisita a lista de um usuario específico
+/// TODO: Comando que requisita um usuario atráves do ID
 /// </summary>
 /// <param name="id"></param>
 /// <returns></returns>

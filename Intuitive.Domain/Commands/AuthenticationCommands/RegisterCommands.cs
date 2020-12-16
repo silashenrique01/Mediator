@@ -4,8 +4,7 @@ using MediatR;
 /// <summary>
 /// TODO: Comando que requisita a criação de um usuario para autenticação
 /// </summary>
-/// <param name="type"></param>
-/// <returns></returns>
+/// <returns>Retorna um usuário com um Token de autenticação único</returns>
 /// 
 
 namespace Intuitive.Domain.Commands.AuthenticationCommands
