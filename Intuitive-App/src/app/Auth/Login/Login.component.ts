@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-Login',
@@ -16,6 +17,9 @@ export class LoginComponent implements OnInit {
   model:any = {};
   username: string;
   nav: NavComponent;
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
+
 
   constructor(
     public router: Router,
@@ -26,6 +30,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if(localStorage.getItem('token') != null){
+      var token = localStorage.getItem('token');
+      this.decodedToken = this.jwtHelper.decodeToken(token);
+      sessionStorage.setItem('username', this.decodedToken.unique_name);
       this.router.navigate(['/user']);
     }
   }
